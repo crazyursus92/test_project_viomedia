@@ -1,8 +1,4 @@
-/**
- * Created by ursus on 26.12.2015.
- */
-
- var header = {
+var header = {
     headerElement: {},
     pointOne: {},
     pointTwo: {},
@@ -43,23 +39,23 @@
 
 
 var app = {
+    counter: 0,
     init: function () {
-
+        this.addObject = this.addObject.bind(this);
+        this.query = this.query.bind(this);
     },
     addObject: function (url, callbackFunc) {
-        var that = this;
-        if(this.queryStack.isQuery(url)){
+        if(this.queryStack.urls[url]){
             this.queryStack.push(url, callbackFunc);
+            this.counter++;
         }else{
-            $.getJSON(url).done(this.done.bind(this,[callbackFunc]))
-                .fail(this.error.bind(this,[callbackFunc]))
-                .always(function () {
-                if(that.queryStack.isQuery(url)){
-                    var query = that.queryStack.pop(url);
-                    that.addObject(query.url, query.callbackFunc);
-                }
-            });
+            this.queryStack.urls[url] = true;
+            this.query(callbackFunc, url);
         }
+    },
+    query: function (callbackFunc, url) {
+        $.getJSON(url).done(this.done.bind(this,[callbackFunc, url]))
+            .fail(this.error.bind(this,[callbackFunc, url]));
     },
     done: function (args, data) {
         if(typeof args[0] === "function"){
@@ -81,30 +77,41 @@ var app = {
             }
             args[0](element);
         }
+        this.always(args[1]);
     },
-    error: function (data) {
+    error: function (args, data) {
         console.log(data);
+        this.always(args[1]);
+    },
+    always: function (url) {
+        console.log(this.queryStack);
+        console.log(this.queryStack.isQuery(url));
+        if(this.queryStack.isQuery(url)){
+            var query = this.queryStack.pop(url);
+            this.query(query.callbackFunc, query.url);
+        }
+        else
+            this.queryStack.urls[url] = false;
+
     },
     queryStack: {
         items: [],
         urls: {},
-
         isQuery: function (url) {
-            return !!this.urls[url];
+            return !!this.items[url].length;
         },
         push: function (url, callbackFunc) {
             var item = {
                 url: url,
                 callbackFunc: callbackFunc
             };
-            this.urls[url] = this.urls[url] > 0 ? this.urls[url]++ : 1;
+            this.urls[url] = true;
             if(!this.items[url])
                 this.items[url] = [];
             this.items[url].push(item);
 
         },
         pop: function (url) {
-            this.urls[url]--;
             return this.items[url].shift();
         }
     }
@@ -112,6 +119,5 @@ var app = {
 
 (function () {
     header.init();
+    app.init();
 })();
-
-
