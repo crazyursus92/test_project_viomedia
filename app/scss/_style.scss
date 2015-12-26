@@ -1,0 +1,98 @@
+
+/* For modern browsers */
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+/* для IE6-7 */
+.clearfix {
+ zoom: 1;
+}
+.container{
+  @extend .clearfix;
+}
+
+.block{
+  &__1{
+    height: 100px;
+    width: 100%;
+    z-index: 10;
+    background-color: #ffafa5;
+  }
+  &__2{
+    height: 1500px;
+    max-width: 600px;
+    width: calc(100% - 200px);
+    margin: 100px auto 50px;
+    background-color: #c3bb3a;
+  }
+  &__3{
+    height: 1500px;
+    max-width: 600px;
+    width: calc(100% - 200px);
+    margin: 50px auto 50px;
+    background-color: #54c351;
+  }
+  &__4{
+    margin-top: 50px;
+    height: 1500px;
+    background-color: #61b4c3;
+  }
+  &__container{
+    @extend .clearfix;
+    position: relative;
+  }
+  &__border{
+    &__1{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      border-bottom: 1px dashed #000;
+    }
+    &__2{
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border-bottom: 1px dashed #000;
+    }
+  }
+  &__fixed{
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  &__absolute{
+    position: absolute;
+  }
+}
+
+@media (min-width: 1500px) {
+  .block{
+      &__2{
+
+        margin: 50px 50px 50px calc(100% - 650px);
+      }
+      &__3{
+        margin: 50px calc(100% - 650px) 50px 50px;
+
+      }
+    &__container{
+      &__2{
+        float: left;
+        width: 50%;
+      }
+      &__3{
+        float: left;
+        width: 50%;
+      }
+    }
+  }
+}

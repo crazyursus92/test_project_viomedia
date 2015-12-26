@@ -1,0 +1,42 @@
+{
+  "name": "test_project",
+  "version": "1.0.0",
+  "description": "Test project ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crazyursus92/test_project_viomedia.git"
+  },
+  "author": "Aleksey Ozhiganov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crazyursus92/test_project_viomedia/issues"
+  },
+  "homepage": "https://github.com/crazyursus92/test_project_viomedia#readme"
+  ,
+  "dependencies": {
+    "jquery": "^2.1.4"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.10.0",
+    "fancybox": "^3.0.0",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-concat-css": "^2.2.0",
+    "gulp-htmlincluder": "^0.1.0",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.1.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp.spritesmith": "^4.2.4",
+    "node-sass": "^3.4.2",
+    "sass-loader": "^3.1.2",
+    "susy": "^2.2.6",
+    "webpack": "^1.12.9"
+  }
+}
